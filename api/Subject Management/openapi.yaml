@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: API de Gestion des Matières
+  description: API pour gérer les matières dans le système éducatif.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/v1
+    description: Serveur local de développement
+paths:
+  /Teaching-unit/Subject/Course:
+    get:
+      summary: Liste des matières
+      description: Récupère une liste paginée de toutes les matières.
+      responses:
+        '200':
+          description: Liste des matières récupérée avec succès.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Subject'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      total:
+                        type: integer
+    post:
+      summary: Ajouter une nouvelle matière
+      description: Crée une nouvelle matière avec les données fournies.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '201':
+          description: Matière créée avec succès.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+  /Teaching-unit/Subject/Course/{subjectId}:
+    get:
+      summary: Récupérer une matière spécifique
+      description: Récupère une matière par son identifiant unique.
+      parameters:
+        - name: subjectId
+          in: path
+          required: true
+          description: Identifiant unique de la matière.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matière récupérée avec succès.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+        '404':
+          description: Matière non trouvée.
+    put:
+      summary: Mettre à jour une matière
+      description: Met à jour les données d'une matière existante.
+      parameters:
+        - name: subjectId
+          in: path
+          required: true
+          description: Identifiant unique de la matière.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Subject'
+      responses:
+        '200':
+          description: Matière mise à jour avec succès.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subject'
+        '404':
+          description: Matière non trouvée.
+    delete:
+      summary: Supprimer une matière
+      description: Supprime une matière par son identifiant unique.
+      parameters:
+        - name: subjectId
+          in: path
+          required: true
+          description: Identifiant unique de la matière.
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Matière supprimée avec succès.
+        '404':
+          description: Matière non trouvée.
+components:
+  schemas:
+    Subject:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique de la matière.
+        name:
+          type: string
+          description: Nom de la matière.
+        description:
+          type: string
+          description: Description de la matière.
+        created_at:
+          type: string
+          format: date-time
+          description: Date et heure de création.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date et heure de la dernière mise à jour.
