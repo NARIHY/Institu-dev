@@ -1,0 +1,281 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "SEKOLY BOX",
+      "description": "API pour la gestion d'un institut",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8000/api/v1",
+        "description": "Serveur local de développement"
+      }
+    ],
+    "paths": {
+      "/teaching-units": {
+        "post": {
+          "summary": "Créer une nouvelle unité d'enseignement",
+          "description": "Crée une nouvelle unité d'enseignement.",
+          "operationId": "createTeachingUnit",
+          "tags": ["Teaching Units"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomMatiere": { "type": "string", "example": "Algorithmique" },
+                    "codeMatiere": { "type": "string", "example": "MAT101" },
+                    "coef": { "type": "integer", "example": 4 },
+                    "formation_id": { "type": "integer", "example": 1 },
+                    "periode_id": { "type": "integer", "example": 2 }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Unité d'enseignement créée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string", "example": "Unité d'enseignement créée avec succès" },
+                      "teachingUnit": {
+                        "type": "object",
+                        "properties": {
+                          "idMatiere": { "type": "integer", "example": 10 },
+                          "nomMatiere": { "type": "string", "example": "Algorithmique" },
+                          "codeMatiere": { "type": "string", "example": "MAT101" },
+                          "coef": { "type": "integer", "example": 4 },
+                          "formation_id": { "type": "integer", "example": 1 },
+                          "periode_id": { "type": "integer", "example": 2 },
+                          "date_creation": { "type": "string", "format": "date-time", "example": "2024-09-09T12:00:00Z" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "summary": "Obtenir toutes les unités d'enseignement",
+          "description": "Récupère la liste de toutes les unités d'enseignement.",
+          "operationId": "getAllTeachingUnits",
+          "tags": ["Teaching Units"],
+          "responses": {
+            "200": {
+              "description": "Liste de toutes les unités d'enseignement",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "idMatiere": { "type": "integer", "example": 10 },
+                        "nomMatiere": { "type": "string", "example": "Algorithmique" },
+                        "codeMatiere": { "type": "string", "example": "MAT101" },
+                        "coef": { "type": "integer", "example": 4 },
+                        "formation_id": { "type": "integer", "example": 1 },
+                        "periode_id": { "type": "integer", "example": 2 }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/teaching-units/{idMatiere}": {
+        "get": {
+          "summary": "Obtenir une unité d'enseignement spécifique",
+          "description": "Récupère les détails d'une unité d'enseignement spécifique.",
+          "operationId": "getTeachingUnitById",
+          "tags": ["Teaching Units"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "idMatiere",
+              "required": true,
+              "schema": { "type": "integer" },
+              "description": "ID de l'unité d'enseignement"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de l'unité d'enseignement",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "idMatiere": { "type": "integer", "example": 10 },
+                      "nomMatiere": { "type": "string", "example": "Algorithmique" },
+                      "codeMatiere": { "type": "string", "example": "MAT101" },
+                      "coef": { "type": "integer", "example": 4 },
+                      "formation_id": { "type": "integer", "example": 1 },
+                      "periode_id": { "type": "integer", "example": 2 }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Mettre à jour une unité d'enseignement",
+          "description": "Met à jour les informations d'une unité d'enseignement existante.",
+          "operationId": "updateTeachingUnit",
+          "tags": ["Teaching Units"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "idMatiere",
+              "required": true,
+              "schema": { "type": "integer" },
+              "description": "ID de l'unité d'enseignement"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomMatiere": { "type": "string", "example": "Algorithmique Avancée" },
+                    "codeMatiere": { "type": "string", "example": "MAT201" },
+                    "coef": { "type": "integer", "example": 5 },
+                    "formation_id": { "type": "integer", "example": 1 },
+                    "periode_id": { "type": "integer", "example": 2 }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Unité d'enseignement mise à jour avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string", "example": "Unité d'enseignement mise à jour avec succès" },
+                      "teachingUnit": {
+                        "type": "object",
+                        "properties": {
+                          "idMatiere": { "type": "integer", "example": 10 },
+                          "nomMatiere": { "type": "string", "example": "Algorithmique Avancée" },
+                          "codeMatiere": { "type": "string", "example": "MAT201" },
+                          "coef": { "type": "integer", "example": 5 },
+                          "formation_id": { "type": "integer", "example": 1 },
+                          "periode_id": { "type": "integer", "example": 2 }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Supprimer une unité d'enseignement",
+          "description": "Supprime une unité d'enseignement spécifique.",
+          "operationId": "deleteTeachingUnit",
+          "tags": ["Teaching Units"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "idMatiere",
+              "required": true,
+              "schema": { "type": "integer" },
+              "description": "ID de l'unité d'enseignement"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Unité d'enseignement supprimée avec succès"
+            }
+          }
+        }
+      },
+      "/trainings": {
+        "post": {
+          "summary": "Créer une nouvelle formation",
+          "description": "Crée une nouvelle formation.",
+          "operationId": "createTraining",
+          "tags": ["Trainings"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "nomFormation": { "type": "string", "example": "BTS Informatique" },
+                    "description": { "type": "string", "example": "Formation en informatique de deux ans." }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Formation créée avec succès",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": { "type": "string", "example": "Formation créée avec succès" },
+                      "training": {
+                        "type": "object",
+                        "properties": {
+                          "idFormation": { "type": "integer", "example": 1 },
+                          "nomFormation": { "type": "string", "example": "BTS Informatique" },
+                          "description": { "type": "string", "example": "Formation en informatique de deux ans." }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "TeachingUnit": {
+          "type": "object",
+          "properties": {
+            "idMatiere": { "type": "integer" },
+            "nomMatiere": { "type": "string" },
+            "codeMatiere": { "type": "string" },
+            "coef": { "type": "integer" },
+            "formation_id": { "type": "integer" },
+            "periode_id": { "type": "integer" }
+          }
+        },
+        "Training": {
+          "type": "object",
+          "properties": {
+            "idFormation": { "type": "integer" },
+            "nomFormation": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+  
