@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\Teaching\Periods\PeriodeSeeders;
 use Database\Seeders\teaching\SubjectManagementSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            SubjectManagementSeeder::class
+            SubjectManagementSeeder::class,
+            PeriodeSeeders::class,
         ]);
     }
 }

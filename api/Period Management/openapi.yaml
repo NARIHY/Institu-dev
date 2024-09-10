@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Period Management API
+  description: API for managing periods in the teaching system.
+  version: 1.0.0
+paths:
+  /v1/Teaching-unit/Periods-Management:
+    get:
+      summary: Retrieve a paginated list of periods.
+      operationId: listPeriods
+      responses:
+        '200':
+          description: A paginated list of periods.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Period'
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      from:
+                        type: integer
+                      last_page:
+                        type: integer
+                      per_page:
+                        type: integer
+                      to:
+                        type: integer
+                      total:
+                        type: integer
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+    post:
+      summary: Store a new period.
+      operationId: storePeriod
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Period'
+      responses:
+        '201':
+          description: The newly created period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Period'
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+  /v1/Teaching-unit/Periods-Management/Show/{periodId}:
+    get:
+      summary: Retrieve a specific period by its ID.
+      operationId: showPeriod
+      parameters:
+        - name: periodId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Period'
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+        '404':
+          description: Period not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update an existing period by its ID.
+      operationId: updatePeriod
+      parameters:
+        - name: periodId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Period'
+      responses:
+        '200':
+          description: The updated period.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Period'
+        '404':
+          description: Period not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    delete:
+      summary: Delete a specific period by its ID.
+      operationId: deletePeriod
+      parameters:
+        - name: periodId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Period deleted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Period'
+        '404':
+          description: Period not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    Period:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "12345"
+        period_name:
+          type: string
+          example: "Fall Semester"
+        period_description:
+          type: string
+          example: "The fall semester period for academic year 2024."
+        start_date:
+          type: string
+          format: date
+          example: "2024-09-01"
+        end_date:
+          type: string
+          format: date
+          example: "2024-12-15"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-08-01T12:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-08-10T12:00:00Z"
