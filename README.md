@@ -1,4 +1,4 @@
-# Gestion de Planification de l'Administration de l'IS2M
+# Gestion de Planification de l'Administration d'un institut
 
 ## Introduction
 
