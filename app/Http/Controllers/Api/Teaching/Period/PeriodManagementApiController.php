@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Teaching;
+namespace App\Http\Controllers\Api\Teaching\Period;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teaching\Periods\PeriodStoreRequest;

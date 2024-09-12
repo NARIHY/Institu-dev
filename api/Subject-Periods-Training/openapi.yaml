@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Teaching Management API
-  description: API for managing subjects and periods in the teaching system.
+  description: API for managing subjects, periods, and training programs in the teaching system.
   version: 1.0.0
 paths:
   /v1/Teaching-unit/Subject/Course:
@@ -257,6 +257,135 @@ paths:
                 properties:
                   message:
                     type: string
+  /v1/Training-Management:
+    get:
+      summary: Retrieve a paginated list of training programs.
+      operationId: listTraining
+      responses:
+        '200':
+          description: A paginated list of training programs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Training'
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+    post:
+      summary: Store a new training program.
+      operationId: storeTraining
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Training'
+      responses:
+        '201':
+          description: The newly created training program.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Training'
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+  /v1/Training-Management/{trainingId}:
+    get:
+      summary: Retrieve a specific training program by its ID.
+      operationId: showTraining
+      parameters:
+        - name: trainingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested training program.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Training'
+          headers:
+            X-Action-Title:
+              description: The action performed.
+              schema:
+                type: string
+        '404':
+          description: Training program not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    put:
+      summary: Update an existing training program.
+      operationId: updateTraining
+      parameters:
+        - name: trainingId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Training'
+      responses:
+        '200':
+          description: The updated training program.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Training'
+        '404':
+          description: Training program not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    delete:
+      summary: Delete a specific training program.
+      operationId: deleteTraining
+      parameters:
+        - name: trainingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Training program deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Training program not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
 components:
   schemas:
     Subject:
@@ -289,6 +418,21 @@ components:
         end_date:
           type: string
           format: date
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Training:
+      type: object
+      properties:
+        id:
+          type: string
+        training_name:
+          type: string
+        training_description:
+          type: string
         created_at:
           type: string
           format: date-time

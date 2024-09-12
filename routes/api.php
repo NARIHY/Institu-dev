@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\Teaching\PeriodManagementApiController;
+use App\Http\Controllers\Api\Teaching\Period\PeriodManagementApiController;
 use App\Http\Controllers\Api\Teaching\SubjectManagementApiController;
+use App\Http\Controllers\Api\Teaching\Training\TrainingApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,19 @@ Route::prefix('/v1')->group(function () {
             Route::put('/Modification/{periodId}', [PeriodManagementApiController::class,'update_periods']);
             //delete one period
             Route::delete('/Remove/{periodId}', [PeriodManagementApiController::class,'delete_periods']);
+        });
+        //Training Ressource
+        Route::prefix('/Training-Management')->group(function () {
+            //Get all list
+            Route::get('/',[TrainingApiController::class,'list_training']);
+            //show one training
+            Route::get('/{trainingId}',[TrainingApiController::class,'show_training']);
+            // store one training
+            Route::post('/',[TrainingApiController::class,'store_training']);
+            //update one training
+            Route::put('/{trainingId}',[TrainingApiController::class,'update_training']);
+            //removed one training
+            Route::delete('/{trainingId}',[TrainingApiController::class,'delete_training']);
         });
     });
 });

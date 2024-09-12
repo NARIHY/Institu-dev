@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Database\Seeders\Teaching\Periods\PeriodeSeeders;
 use Database\Seeders\teaching\SubjectManagementSeeder;
+use Database\Seeders\Teaching\Training\TrainingSeeder;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             SubjectManagementSeeder::class,
             PeriodeSeeders::class,
+            SubjectManagementSeeder::class,
+            TrainingSeeder::class,
         ]);
     }
 }

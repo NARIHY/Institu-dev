@@ -15,10 +15,12 @@ class SubjectManagementResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'subjectName' => $this->subjectName,
-            'subjectCode' => $this->subjectCode,
-            'coefficient' => $this->coefficient,
+            'subject_id' => $this->id,
+            'subject_name' => $this->subjectName,
+            'subject_code' => $this->subjectCode,
+            'subject_coefficient' => $this->coefficient,
+            'subject_created_at' => $this->created_at,
+            'subject_updated_at' => $this->updated_at,
         ];
     }
 }
