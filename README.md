@@ -34,7 +34,7 @@ Les fonctionnalités supplémentaires peuvent inclure :
 1. **Cloner le dépôt**
 
    ```bash
-   git clone https://github.com/NARIHY/NARIHY-mg.git
+   git clone https://github.com/NARIHY/Institut-dev.git
    ```
 
 2. **Installer les dépendances**
